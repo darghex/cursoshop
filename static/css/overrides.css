@@ -80,3 +80,47 @@
     color: rgba(0, 40, 44, 0.9)
 }
 
+.box_signin {
+    max-width: 450px;
+}
+
+.box_signin {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #33B77F;
+    border-color: #2EA480;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #229264;
+    border-color: #19795C;
+}
+
+
+.form-control {
+    border-radius: 7px;
+}
+
+.navbar-default {
+    background-color: #033033;
+    border-color: #04251E;
+}
+
+body {
+
+    background-image: url(../img/bg.jpg);
+}
+
+hr {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #C3CECC;
+}
