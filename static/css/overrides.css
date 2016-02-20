@@ -67,3 +67,16 @@
 .breadcrumb li.active{
     font-weight: bold;
 }
+
+.pagination-centered {
+    text-align: center;
+}
+
+.pagination>li>a:hover{
+    color: rgba(0, 40, 44, 0.9);
+}
+
+.pagination>li>a:visited{
+    color: rgba(0, 40, 44, 0.9)
+}
+
