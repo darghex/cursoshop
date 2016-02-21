@@ -1,0 +1,126 @@
+.navbar-inverse {
+    background-color: rgba(0, 40, 44, 0.9);
+    border-color: rgba(0, 28, 32, 0.9);
+}
+
+.navbar-brand {
+    color: rgb(255,255,255);
+    font-weight: bold;
+}
+
+.navbar-brand.custom {
+
+    height: auto;
+    padding: 0;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover{
+    color: #fff;
+    background-color: rgba(0, 40, 44, 0.9);
+    font-weight: bold;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover{
+    color: #fff;
+    background-color: rgba(0, 96, 100, 0.9);
+}
+
+.navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 12px;
+}
+
+.navbar-static-bottom {
+    border-radius: 0;
+    z-index: 1000;
+    border-width: 0 0 1px;
+    padding-right: 0;
+    padding-left: 0;
+    margin: 20px 0 0;
+    background-color: rgba(0, 40, 44, 0.9);
+    border-color: rgba(0, 28, 32, 0.9);
+
+}
+.navbar-static-bottom p.navbar-text{
+    color: #fff;
+}
+
+.container.initial{
+    margin-top: 100px;
+}
+
+.breadcrumb {
+    padding: 8px 15px;
+    margin-bottom: 20px;
+    list-style: none;
+    background-color: #fff;
+    color: #0f0f0f;
+}
+
+.breadcrumb li a {
+    color: #fff;
+    background-color: rgba(0, 96, 100, 0.9);
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.breadcrumb li.active{
+    font-weight: bold;
+}
+
+.pagination-centered {
+    text-align: center;
+}
+
+.pagination>li>a:hover{
+    color: rgba(0, 40, 44, 0.9);
+}
+
+.pagination>li>a:visited{
+    color: rgba(0, 40, 44, 0.9)
+}
+
+.box_signin {
+    max-width: 450px;
+}
+
+.box_signin {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #0f923a;
+    border-color: #14791d;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0a9266;
+    border-color: #0b7952;
+}
+
+
+.form-control {
+    border-radius: 7px;
+}
+
+.navbar-default {
+    background-color: #033033;
+    border-color: #04251E;
+}
+
+body {
+
+    background-image: url(../img/bg.jpg);
+}
+
+hr {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #C3CECC;
+}
