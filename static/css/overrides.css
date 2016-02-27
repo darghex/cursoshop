@@ -18,6 +18,11 @@
     color: #fff;
     background-color: rgba(0, 40, 44, 0.9);
     font-weight: bold;
+
+}
+
+ul.nav>li>a {
+    padding: 25px;
 }
 
 .navbar-inverse .navbar-nav>li>a:hover{
