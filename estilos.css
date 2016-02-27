@@ -1,0 +1,17 @@
+.titulo{
+    font-size: 50px;
+    color: #1b6d85;
+    text-align: center;
+}
+
+.docente {
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.docenteFoto{
+    font-size: 25px;
+    text-align: center;
+
+}
