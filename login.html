@@ -90,7 +90,7 @@
             </label>
         </div>
         <br />
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <button class="btn btn-lg btn-primary btn-block"  id="btnEnviar" type="button">Login</button>
 
         <p>¿olvidaste tu contraseña? <a href="#">Recuerdala</a></p>
     </form></div>
@@ -109,5 +109,22 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="static/vendors/bootstrap-3.3.6/dist/js/bootstrap.min.js"></script>
 <script src="./Signin Template for Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
+
+<script>
+
+
+  document.getElementById('btnEnviar').onclick = function (){
+
+
+        //debugger;
+
+        var user = document.getElementById('inputEmail').value;
+        var pass = document.getElementById('inputPassword').value;
+
+            if ( user == 'admin@upc.edu.co' && pass == "admin"){
+              console.log("bienvenido");
+            }
+  }
+</script>
 </body>
 </html>
