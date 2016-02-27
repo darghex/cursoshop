@@ -124,3 +124,42 @@ hr {
     border: 0;
     border-top: 1px solid #C3CECC;
 }
+.pagination-centered {
+    margin: 200px 0 0;
+    text-align: center;
+}
+
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+    /* margin-top: 00px;*/
+}
+
+
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.center-block p {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.center-block h1 {
+    margin-right: 10px;
+    margin-left: 10px;
+    color: #008b8b;
+    font-weight: bold;
+    font-style: italic;
+
+}
+.pagination>li>a:hover{
+    color: rgba(0, 40, 44, 0.9);
+}
+
+.pagination>li>a:visited{
+    color: rgba(0, 40, 44, 0.9)
+}
