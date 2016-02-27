@@ -35,13 +35,22 @@ ul.nav>li>a {
     padding-bottom: 12px;
 }
 
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+    padding: 14px 24px;
+    font-size: 21px;
+}
+
 .navbar-static-bottom {
     border-radius: 0;
     z-index: 1000;
     border-width: 0 0 1px;
     padding-right: 0;
     padding-left: 0;
-    margin: 20px 0 0;
+    margin: 200px 0 0;
     background-color: rgba(0, 40, 44, 0.9);
     border-color: rgba(0, 28, 32, 0.9);
 
@@ -50,7 +59,12 @@ ul.nav>li>a {
     color: #fff;
 }
 
+
 .container.initial{
+    margin-top: 100px;
+}
+.btn-grupo{
+    position: static;
     margin-top: 100px;
 }
 
