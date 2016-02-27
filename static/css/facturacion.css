@@ -1,0 +1,15 @@
+.boton, .iconos {
+    text-align: center;
+}
+.navbar-default {
+    background-color: #193D40;
+    border-color: #193D40;
+}
+.imagen{
+    width: 50%;
+    height: 50%;
+}
+.virtual{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
