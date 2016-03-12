@@ -30,7 +30,7 @@
     padding-bottom: 12px;
 }
 
-.navbar-static-bottom {
+.navbar-static-bottom, .navbar-fixed-bottom {
     border-radius: 0;
     z-index: 1000;
     border-width: 0 0 1px;
@@ -46,7 +46,7 @@
 }
 
 .container.initial{
-    margin-top: 100px;
+    margin-top: 80px;
 }
 
 .breadcrumb {
@@ -80,4 +80,29 @@
     color: rgba(0, 40, 44, 0.9)
 }
 
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover{
+  background-color: rgba(0, 40, 44, 0.9);
+}
 
+.img-center {
+  display: table;
+     margin: 0 auto;
+}
+
+.titulo{
+    font-size: 50px;
+    color: #1b6d85;
+    text-align: center;
+}
+
+.docente {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.docenteFoto{
+    font-size: 20px;
+    text-align: center;
+
+}
