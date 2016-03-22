@@ -20,7 +20,7 @@ from main.views import *
 
 urlpatterns = [
     url('^$', index , name = 'index'),
-    url('^login$', login, name = 'login' ),
+    url('^login$', login, name = 'login' ), #/login
     url('^about$', about, name = 'about' ),
     url('^me$', me, name = 'me' ),
     url('^search$', login, name = 'search' ),

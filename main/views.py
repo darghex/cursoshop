@@ -1,16 +1,25 @@
 from django.shortcuts import render, render_to_response
-
+from django.template import RequestContext
+from django.contrib.auth import authenticate
+from .models import Chapter
 # Create your views here.
 
 def index(request):
     """view principal
     """
-    return render_to_response('index.html')
+    return render_to_response('index.html' )
 
 def login(request):
     """view del login
     """
-    return render_to_response('login.html')
+    user = request.POST.get('correo')
+    clave = request.POST.get('clave')
+    correcto = False
+    usuario = authenticate(username = user, password = clave )
+    if not usuario is None:
+        correcto = True
+
+    return render_to_response('login.html', {"correcto" : correcto  } , context_instance = RequestContext(request))
 
 def search(request):
     """view de los resultados de busqueda
