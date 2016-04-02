@@ -69,6 +69,10 @@
         <li class="active" >Registro de nuevo usuario</li>
 
     </ol>
+    {% if error %}
+    <div class="alert alert-danger"> {{ error }} </div>
+
+    {% endif %}
     <form method="post" action="">
       {% csrf_token %}
       <div class="container-fluid">

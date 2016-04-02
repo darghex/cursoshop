@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm
 from django.core.exceptions import NON_FIELD_ERRORS
-from .models import Usuario
+
 # Create your views here.
 
 def index(request):
@@ -76,19 +76,27 @@ def logout(request):
     return HttpResponseRedirect("/login")
 
 from django.contrib.auth.hashers import make_password
-
+from .models import Usuario
+from validators import Validator
 def registro(request):
     """view del profile
     """
+    error = False
     if request.method == 'POST':
-        usuario = Usuario()
-        usuario.first_name = request.POST['nombre']
-        usuario.last_name = request.POST['apellidos']
-        usuario.username = request.POST['email']
-        usuario.password = make_password(request.POST['password1'])
-        #TODO: ENviar correo electronico para confirmar cuenta
-        usuario.is_active = True
-        usuario.save()
+        validator = Validator(request.POST)
+        validator.required = ['nombre', 'apellidos', 'email']
 
+        if validator.is_valid():
+            usuario = Usuario()
+            #p = Persona.objects.get(documento = '123123123321')
+            usuario.first_name = request.POST['nombre']
+            usuario.last_name = request.POST['apellidos']
+            usuario.username = request.POST['email']
+            usuario.password = make_password(request.POST['password1'])
+            #TODO: ENviar correo electronico para confirmar cuenta
+            usuario.is_active = True
+            usuario.save()
+        else:
+            return render_to_response('registrarse.html', {'error': validator.getMessage() } , context_instance = RequestContext(request))
         # Agregar el usuario a la base de datos
     return render_to_response('registrarse.html', context_instance = RequestContext(request))
