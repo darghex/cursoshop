@@ -30,7 +30,7 @@
             </button>
 
             <a class="navbar-brand custom" href="#">
-                <img alt="Logo" src="/static/img/logo.png">
+                <img alt="Logo" src="/static/img/logo_curso.png">
             </a>
             <a id="titulo" class="navbar-brand" href="#"><i  >CursoShop</i></a>
             <form class="navbar-form navbar-left" role="search">
@@ -56,9 +56,16 @@
               </li>
 
                 <li>
+
+                  {% if user.is_anonymous %}
                     <a href="{% url 'login' %}" >
                         <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Ingrese
                     </a>
+                  {% else %}
+                   <a href="{% url 'login' %}" >
+                     Bienvenid@, {{ user }}
+                  </a>
+                  {% endif %}
                 </li>
 
             </ul>

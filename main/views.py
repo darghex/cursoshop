@@ -7,12 +7,13 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm
 from django.core.exceptions import NON_FIELD_ERRORS
+from .models import Usuario
 # Create your views here.
 
 def index(request):
     """view principal
     """
-    return render_to_response('index.html' )
+    return render_to_response('index.html', context_instance = RequestContext(request) )
 
 def login(request):
     """view del login
@@ -40,7 +41,6 @@ def login(request):
 
 
     return render_to_response('login.html', {"form": formulario} , context_instance = RequestContext(request))
-
 
 
 def search(request):
@@ -75,7 +75,20 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/login")
 
+from django.contrib.auth.hashers import make_password
+
 def registro(request):
     """view del profile
     """
-    return render_to_response('registrarse.html')
+    if request.method == 'POST':
+        usuario = Usuario()
+        usuario.first_name = request.POST['nombre']
+        usuario.last_name = request.POST['apellidos']
+        usuario.username = request.POST['email']
+        usuario.password = make_password(request.POST['password1'])
+        #TODO: ENviar correo electronico para confirmar cuenta
+        usuario.is_active = True
+        usuario.save()
+
+        # Agregar el usuario a la base de datos
+    return render_to_response('registrarse.html', context_instance = RequestContext(request))

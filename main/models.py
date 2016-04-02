@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from tinymce.models import HTMLField
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -24,3 +25,7 @@ class Course(models.Model):
     teacher = models.ForeignKey(Teacher)
     Chapter = models.ManyToManyField(Chapter)
     image = models.ImageField(upload_to = 'uploads/')
+
+class Usuario(User):    
+    class Meta:
+        proxy = True
