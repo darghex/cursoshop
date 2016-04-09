@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm
 from django.core.exceptions import NON_FIELD_ERRORS
+from .validators import FormRegistroValidator
 
 # Create your views here.
 
@@ -24,6 +25,7 @@ def login(request):
         #Cargamos el formulario (ver forms.py con los datos del POST)
         formulario = LoginForm(data = request.POST)
         #Verificamos que los datos esten correctos segun su estructura
+
         if formulario.is_valid():
             # Capturamos las variables que llegan por POST
             usuario = request.POST.get('usuario')
@@ -34,7 +36,7 @@ def login(request):
             #Si el usuario existe abrimos una sesion de usuario
 
             if not acceso is None:
-                auth.login(request, acceso)
+                auth.login(request, acceso) # Crear una sesion
                 return HttpResponseRedirect('/home')
             else:
                 formulario._errors = { NON_FIELD_ERRORS:  'Usuario o Password Invalido'}
@@ -48,7 +50,7 @@ def search(request):
     """
     return render_to_response('login.html')
 
-@login_required(login_url="/login") # Protegemos la vista con el decorador del loguin para que solo pueda ingresar un usuario logueado
+@login_required(login_url="/login")
 def home(request):
     """view de los resultados de busqueda
     """
@@ -81,10 +83,11 @@ from validators import Validator
 def registro(request):
     """view del profile
     """
+
     error = False
     if request.method == 'POST':
-        validator = Validator(request.POST)
-        validator.required = ['nombre', 'apellidos', 'email']
+        validator = FormRegistroValidator(request.POST)
+        validator.required = ['nombre', 'apellidos', 'email','password1']
 
         if validator.is_valid():
             usuario = Usuario()
@@ -92,10 +95,12 @@ def registro(request):
             usuario.first_name = request.POST['nombre']
             usuario.last_name = request.POST['apellidos']
             usuario.username = request.POST['email']
+            usuario.email = request.POST['email']
             usuario.password = make_password(request.POST['password1'])
             #TODO: ENviar correo electronico para confirmar cuenta
             usuario.is_active = True
             usuario.save()
+            return render_to_response('registrarse.html', {'success': True  } , context_instance = RequestContext(request))
         else:
             return render_to_response('registrarse.html', {'error': validator.getMessage() } , context_instance = RequestContext(request))
         # Agregar el usuario a la base de datos

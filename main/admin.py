@@ -6,7 +6,6 @@ from .models import *
 class TeacherAdmin(admin.ModelAdmin):
     pass
 
-
 class TopicAdmin(admin.TabularInline):
     model = Topic
 

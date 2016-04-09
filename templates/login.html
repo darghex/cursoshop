@@ -22,7 +22,7 @@
               {% csrf_token %}
                 <h2 class="form-signin-heading text-center">Ingresar</h2>
                 <hr />
-                <p>¿Todavía no te has registrado? <a href="registrarse.html">Regístrate!</a></p>
+                <p>¿Todavía no te has registrado? <a href="{% url 'register' %}">Regístrate!</a></p>
                 <div class="form-group">
                 <label for="{{ form.usuario.if_for_label}}" class="sr-only">Usuario</label>
 

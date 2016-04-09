@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-class Validator():
+from .models import Usuario
+class Validator(object):
     _post  = None
     required = []
     _message = ''
@@ -31,10 +32,26 @@ class Validator():
 
                 self._message = 'El campo %s no puede ser vacio' %  field
                 return False
+
+        return True
+
+    def getMessage(self):
+        return self._message
+
+
+class FormRegistroValidator(Validator):
+
+
+    def is_valid(self):
+        if not super(FormRegistroValidator, self).is_valid():
+            return False
         #validar que las contraseñas sehan iguales
         if not self._post['password1'] == self._post['password2']:
             self._message = 'Las contraseñas no  coinciden'
             return False
 
-    def getMessage(self):
-        return self._message
+        if Usuario.objects.filter(email = self._post('email')).exists():
+            self._message = 'El correo electrónico ya se encuentra registrado'
+            return False
+        #Por ultimo retornamos que en caso de que todo marche bien es correcto el formulario
+        return True
