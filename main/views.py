@@ -30,7 +30,7 @@ def login(request):
             # Capturamos las variables que llegan por POST
             usuario = request.POST['usuario']
             clave = request.POST['clave']
-            auth.login(request, acceso) # Crear una sesion
+            auth.login(request, validator.acceso) # Crear una sesion
             return HttpResponseRedirect('/home')
         else:
             return render_to_response('login.html', {'error': validator.getMessage() } , context_instance = RequestContext(request))

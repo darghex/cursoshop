@@ -59,6 +59,7 @@ class FormRegistroValidator(Validator):
         return True
 
 class FormLoginValidator(Validator):
+    acceso = None
 
     def is_valid(self):
         if not super(FormLoginValidator, self).is_valid():
@@ -68,6 +69,7 @@ class FormLoginValidator(Validator):
         clave = self._post['clave']
 
         acceso = auth.authenticate(username = usuario, password = clave )
+        self.acceso = acceso
         if acceso is None:
             self._message = 'Usuario o contraseña inválido'
             return False
