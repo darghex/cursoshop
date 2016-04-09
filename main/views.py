@@ -5,9 +5,8 @@ from django.contrib import auth
 from .models import Chapter
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm
 from django.core.exceptions import NON_FIELD_ERRORS
-from .validators import FormRegistroValidator
+from .validators import FormRegistroValidator, FormLoginValidator
 
 # Create your views here.
 
@@ -20,29 +19,23 @@ def login(request):
     """view del login
     """
     #Verificamos que los datos lleguen por el methodo POST
-    formulario = LoginForm()
+
     if request.method == 'POST':
         #Cargamos el formulario (ver forms.py con los datos del POST)
-        formulario = LoginForm(data = request.POST)
+        validator = FormLoginValidator(request.POST)
+        #formulario = LoginForm(data = request.POST)
         #Verificamos que los datos esten correctos segun su estructura
 
-        if formulario.is_valid():
+        if validator.is_valid():
             # Capturamos las variables que llegan por POST
-            usuario = request.POST.get('usuario')
-            clave = request.POST.get('clave')
+            usuario = request.POST['usuario']
+            clave = request.POST['clave']
+            auth.login(request, acceso) # Crear una sesion
+            return HttpResponseRedirect('/home')
+        else:
+            return render_to_response('login.html', {'error': validator.getMessage() } , context_instance = RequestContext(request))
 
-            #validamos los datos de usuario y contraseña, el metodo authenticate verifica el password cifrado
-            acceso = auth.authenticate(username = usuario, password = clave )
-            #Si el usuario existe abrimos una sesion de usuario
-
-            if not acceso is None:
-                auth.login(request, acceso) # Crear una sesion
-                return HttpResponseRedirect('/home')
-            else:
-                formulario._errors = { NON_FIELD_ERRORS:  'Usuario o Password Invalido'}
-
-
-    return render_to_response('login.html', {"form": formulario} , context_instance = RequestContext(request))
+    return render_to_response('login.html', context_instance = RequestContext(request))
 
 
 def search(request):
@@ -76,6 +69,8 @@ def contacto(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/login")
+
+
 
 from django.contrib.auth.hashers import make_password
 from .models import Usuario

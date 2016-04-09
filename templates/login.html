@@ -5,15 +5,10 @@
         <li class="active">Login</li>
     </ol>
 
-    {% if form.errors %}
-    <div class="alert alert-danger" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error:</span>
-        Ha ocurrido un error por favor corrija lo que se menciona a continuación:
-        {{ form.non_field_errors }}
-    </div>
+    {% if error %}
+      <div class="alert alert-danger"> {{ error }} </div>
     {% endif %}
+
     <div class="box_signin">
       <div class="row">
         <div class="col-md-3"></div>
@@ -24,18 +19,14 @@
                 <hr />
                 <p>¿Todavía no te has registrado? <a href="{% url 'register' %}">Regístrate!</a></p>
                 <div class="form-group">
-                <label for="{{ form.usuario.if_for_label}}" class="sr-only">Usuario</label>
+                <label for="id_usuario" class="sr-only">Usuario</label>
 
-                <input type="text" id="{{ form.usuario.if_for_label}}" name="{{ form.usuario.name}}" class="form-control" placeholder="Usuario" required="" autofocus="">
-                {% if form.usuario.errors %}
-                <div class="alert alert-danger">{{ form.usuario.errors }}</div>
-                {% endif %}
-                <label for="{{ form.clave.if_for_label}}" class="sr-only">Contraseña</label>
+                <input type="text" id="id_usuario" name="usuario" class="form-control" placeholder="Usuario" required="" autofocus="">
 
-                <input type="password" name="{{ form.clave.name}}" id="{{ form.clave.if_for_label}}" class="form-control" placeholder="Contraseña" required="">
-                {% if form.clave.errors %}
-                <div class="alert alert-danger">{{ form.clave.errors }}</div>
-                {% endif %}
+                <label for="id_clave" class="sr-only">Contraseña</label>
+
+                <input type="password" name="clave" id="id_clave" class="form-control" placeholder="Contraseña" required="">
+
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" value="remember-me"> Recordarme
