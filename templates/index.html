@@ -7,56 +7,30 @@
     </ol>
 
     <div class="alert alert-success" role="alert">
-        <p class="alert-link">Su búsqueda ha arrojado los siguientes resultados!</p>
+        {% if cursos.count == 1 %}
+        <p class="alert-link">Resultados encontrados por "{{ filtro }}"  {{ cursos.count }} curso disponible</p>
+
+        {% elif cursos.count > 1 %}
+        <p class="alert-link">Resultados encontrados por "{{ filtro }}"  {{ cursos.count }} cursos disponibles</p>
+        {% else%}
+        <p class="alert-link">En total {{ cursos.count }} disponibles</p>
+        {% endif %}
+
+
     </div>
 
-
-
     <div class="row placeholders">
+       {% for curso in cursos %}
+
         <div class="col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-            <h4 ><a href="contenido.html">Curso de Lógica de programación</a></h4>
-            <span class="text-muted">$0,00</span>
+            <img src="/static/{{ curso.image }}" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
+            <h4 ><a href="contenido.html">{{ curso.name }}</a></h4>
+            <span class="text-muted">${{ curso.price }}</span>
         </div>
-        <div class="col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-            <h4 >Curso de FrontEnd con BootStrap</h4>
-            <span class="text-muted">$0,00</span>
-        </div>
-        <div class="col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-            <h4 >Curso de BackEnd Laravel PHP</h4>
-            <span class="text-muted">$0,00</span>
-        </div>
-        <div class="col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-            <h4 >Curso de BackEnd Django python</h4>
-            <span class="text-muted">$0,00</span>
-        </div>
+        {% endfor %}
+
     </div><!-- row -->
 
-    <div class="row placeholders">
-        <div class="col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-            <h4 >Curso de Lógica de programación</h4>
-            <span class="text-muted">$0,00</span>
-        </div>
-        <div class="col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-            <h4 >Curso de FrontEnd con BootStrap</h4>
-            <span class="text-muted">$0,00</span>
-        </div>
-        <div class="col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-            <h4 >Curso de BackEnd Laravel PHP</h4>
-            <span class="text-muted">$0,00</span>
-        </div>
-        <div class="col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-            <h4 >Curso de BackEnd Django python</h4>
-            <span class="text-muted">$0,00</span>
-        </div>
-    </div><!-- row -->
 
 
 </div><!--container -->

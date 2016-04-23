@@ -17,15 +17,20 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from main.views import *
+from django.conf.urls import patterns
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     url('^$', index , name = 'index'),
     url('^login$', login, name = 'login' ), #/login
     url('^logout$', logout, name = 'logout' ), #/login
-    url('^home/$', home, name = 'home' ), #/home
+    url('^home$', home, name = 'home' ), #/home
+    url('^profile$', home, name = 'profile' ), #/profile
     url('^about$', about, name = 'about' ),
     url('^me$', me, name = 'me' ),
-    url('^search$', login, name = 'search' ),
+    url('^search$', search, name = 'search' ),
     url('^register$', registro, name = 'register' ),
     url('^contacts$', contacto, name = 'contacts' ),
     url(r'^admin/', admin.site.urls),

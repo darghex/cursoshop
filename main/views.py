@@ -2,7 +2,7 @@
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.contrib import auth
-from .models import Chapter
+from .models import Chapter,Course
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import NON_FIELD_ERRORS
@@ -13,7 +13,8 @@ from .validators import FormRegistroValidator, FormLoginValidator
 def index(request):
     """view principal
     """
-    return render_to_response('index.html', context_instance = RequestContext(request) )
+    cursos = Course.objects.all()
+    return render_to_response('index.html',  {'cursos': cursos }, context_instance = RequestContext(request) )
 
 def login(request):
     """view del login
@@ -37,17 +38,41 @@ def login(request):
 
     return render_to_response('login.html', context_instance = RequestContext(request))
 
-
+from django.db.models import Q
 def search(request):
     """view de los resultados de busqueda
     """
-    return render_to_response('login.html')
+    cursos = None
+    filter = None
+    if 'filter' in request.GET.keys():
+        filter = request.GET['filter']
+        qset = ( Q( name__icontains = filter) |
+                Q( price__icontains = filter) |
+                Q( teacher__name__icontains = filter) 
+                )
+        cursos = Course.objects.filter(qset)
+
+        """
+        Manera de realizar consultar por un criterio a la vez
+        #buscamos por nombre del curso
+        cursos = Course.objects.filter( name__icontains =  request.GET['filter'] )
+        # Si no existen resultados buscarmos por precio
+        if not cursos.exists():
+            cursos = Course.objects.filter( price__icontains =  request.GET['filter'] )
+        # Si no existen resultados buscarmos por profesor
+        if not cursos.exists():
+            cursos = Course.objects.filter( teacher__name__icontains =  request.GET['filter'] )
+        filter = request.GET['filter']
+        """
+
+
+    return render_to_response('index.html', {'cursos': cursos, 'filtro': filter  }, context_instance = RequestContext(request))
 
 @login_required(login_url="/login")
 def home(request):
     """view de los resultados de busqueda
     """
-    return render_to_response('perfil.html')
+    return render_to_response('index.html', context_instance = RequestContext(request))
 
 
 def about(request):
@@ -69,7 +94,6 @@ def contacto(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/login")
-
 
 
 from django.contrib.auth.hashers import make_password

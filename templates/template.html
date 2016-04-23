@@ -33,12 +33,12 @@
                 <img alt="Logo" src="/static/img/logo_curso.png">
             </a>
             <a id="titulo" class="navbar-brand" href="#"><i  >CursoShop</i></a>
-            <form class="navbar-form navbar-left" role="search">
+            <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'search' %}">
                 <div class="input-group">
-                    <input type="text" class="form-control" id ="txtBuscar" placeholder="Buscar por ...">
-      <span class="input-group-btn">
-        <button id="btnBuscar" class="btn btn-default" type="button">Ir!</button>
-      </span>
+                    <input type="text" name="filter" class="form-control" id ="txtBuscar" placeholder="Buscar por ...">
+                    <span class="input-group-btn">
+                      <button id="btnBuscar"  class="btn btn-default" type="submit">Ir!</button>
+                    </span>
                 </div><!-- /input-group -->
             </form>
         </div>
@@ -49,24 +49,25 @@
                 <li><a href="{% url 'contacts' %}">Contáctenos</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li>
-                  <a href="{% url 'register' %}" >
-                      <span class="glyphicon glyphicon-open" aria-hidden="true"></span> Registrese
-                  </a>
-              </li>
-
-                <li>
-
-                  {% if user.is_anonymous %}
+              {% if user.is_anonymous %}
+                  <li>
+                      <a href="{% url 'register' %}" >
+                          <span class="glyphicon glyphicon-open" aria-hidden="true"></span> Registrese
+                      </a>
+                  </li>
+                  <li>
                     <a href="{% url 'login' %}" >
                         <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Ingrese
                     </a>
-                  {% else %}
+                  </li>
+              {% else %}
+                  <li>
                    <a href="{% url 'login' %}" >
-                     Bienvenid@, {{ user }}
-                  </a>
-                  {% endif %}
-                </li>
+                      Bienvenid@, {{ user }}
+                    </a>
+                  </li>
+              {% endif %}
+
 
             </ul>
         </div><!--/.nav-collapse -->
