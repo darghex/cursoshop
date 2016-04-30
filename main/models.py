@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 class Chapter(models.Model):
     name = models.CharField(max_length= 120)
+    course  = models.ForeignKey('Course')
 
     def __unicode__(self):
         return self.name
@@ -32,12 +33,16 @@ class Course(models.Model):
     name = models.CharField(max_length= 120)
     price = models.FloatField()
     teacher = models.ForeignKey(Teacher)
-    Chapter = models.ManyToManyField(Chapter)
     image = models.ImageField(upload_to = 'static/uploads/')
+
+    class Meta:
+        verbose_name = 'Curso'
+        verbose_name_plural ="Cursos"
 
     def __unicode__(self):
         return self.name
 
-class Usuario(User):
-    class Meta:
-        proxy = True
+list_sexo = ( ('M', 'Masculino') , ('F', 'Femenino'))
+class Usuario(models.Model):
+    id = models.OneToOneField(User, primary_key = True)
+    sexo = models.CharField( max_length=1, choices = list_sexo)

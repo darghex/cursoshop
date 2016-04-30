@@ -63,7 +63,7 @@
               {% else %}
                   <li>
                    <a href="{% url 'login' %}" >
-                      Bienvenid@, {{ user }}
+                      Bienvenid@, {{ user.first_name }}
                     </a>
                   </li>
               {% endif %}

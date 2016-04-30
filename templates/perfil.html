@@ -13,32 +13,36 @@
 
         <div class="col-lg-4">
             <img src="/static/img/enfo.jpg" alt="imagen de marcador genérico">
-            <h2><font><font>nombre</font></font></h2>
-            <p><font><font>seguidores <br /><br />registrado en"" </br></p>
+            <h2><font><font>{{ user.first_name }} {{ user.last_name }}</font></font></h2>
 
         </div>
 
         <div class="col-lg-8">
             <div class="jumbotron">
+              {% if user.groups.all.0.id == 2 %}
+                <h1>Tus Cursos </h1>
 
-                <h1><font><font>TUS COMPRAS HAN SIDO </font></font></h1>
-                <div class="col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-                    <h4>Curso de BackEnd Django python</h4>
-                    <span class="text-muted">$0,00</span>
-                </div>
-                <div class="col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-                    <h4>Curso de Lógica de programación</h4>
-                    <span class="text-muted">$0,00</span>
-                </div>
-                <div class="col-sm-3 placeholder">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-                    <h4>Curso de FrontEnd con BootStrap</h4>
-                    <span class="text-muted">$0,00</span>
-                </div>
-                    <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button"><font><font>editar perfil »</font></font></a>
-                </p>
+              {% else %}
+
+                              <h1><font><font>TUS COMPRAS HAN SIDO </font></font></h1>
+                              <div class="col-sm-3 placeholder">
+                                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
+                                  <h4>Curso de BackEnd Django python</h4>
+                                  <span class="text-muted">$0,00</span>
+                              </div>
+                              <div class="col-sm-3 placeholder">
+                                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
+                                  <h4>Curso de Lógica de programación</h4>
+                                  <span class="text-muted">$0,00</span>
+                              </div>
+                              <div class="col-sm-3 placeholder">
+                                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
+                                  <h4>Curso de FrontEnd con BootStrap</h4>
+                                  <span class="text-muted">$0,00</span>
+                              </div>
+                                  <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button"><font><font>editar perfil »</font></font></a>
+                              </p>
+               {% endif %}
             </div>
 
         </div>

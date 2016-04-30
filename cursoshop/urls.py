@@ -33,6 +33,7 @@ urlpatterns = [
     url('^search$', search, name = 'search' ),
     url('^register$', registro, name = 'register' ),
     url('^contacts$', contacto, name = 'contacts' ),
+    url('^notas$', notas, name = 'notas' ),
     url(r'^admin/', admin.site.urls),
     url(r'^tinymce/', include('tinymce.urls')),
 ]

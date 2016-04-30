@@ -1,18 +1,18 @@
 from django.contrib import admin
-from .models import *
+from main.models import Course, Chapter
 # Register your models here.
 
-@admin.register(Teacher)
-class TeacherAdmin(admin.ModelAdmin):
-    pass
+#modelo Hijo
+class ChapterChildAdmin(admin.TabularInline):
+    model = Chapter
 
-class TopicAdmin(admin.TabularInline):
-    model = Topic
+#modelo padre
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    search_fields = ('name', 'price', 'teacher__name')
+    list_display = ('name', 'price', 'teacher')
+    inlines = (ChapterChildAdmin ,)
 
 @admin.register(Chapter)
 class ChapterAdmin(admin.ModelAdmin):
-    inlines = [TopicAdmin,]
-
-@admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'course')

@@ -39,19 +39,29 @@
     <nav>
         <ul class="pagination">
             <li>
-                <a href="#" aria-label="Previous">
+              {% if cursos.has_previous %}
+                <a href="{% url 'search' %}?filter={{filtro}}&page={{ cursos.previous_page_number }}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
+              {% else %}
+              <a href="{% url 'search' %}?filter={{filtro}}&page=1" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+              </a>
+              {% endif %}
             </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
+            {% for page in paginador.page_range %}
+            <li><a href="{% url 'search' %}?filter={{filtro}}&page={{ page }}">{{ page}}</a></li>
+            {% endfor %}
             <li>
-                <a href="#" aria-label="Next">
+                {% if cursos.has_next %}
+                <a href="{% url 'search' %}?filter={{filtro}}&page={{ cursos.next_page_number }}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
+                {% else %}
+                <a href="{% url 'search' %}?filter={{filtro}}&page={{ paginador.num_pages }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                {% endif%}
             </li>
         </ul>
     </nav>

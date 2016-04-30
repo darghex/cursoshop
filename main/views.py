@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import NON_FIELD_ERRORS
 from .validators import FormRegistroValidator, FormLoginValidator
-
+from django.contrib.auth.models import User, Group
 # Create your views here.
 
 def index(request):
@@ -39,6 +39,8 @@ def login(request):
     return render_to_response('login.html', context_instance = RequestContext(request))
 
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import Http404
 def search(request):
     """view de los resultados de busqueda
     """
@@ -48,9 +50,19 @@ def search(request):
         filter = request.GET['filter']
         qset = ( Q( name__icontains = filter) |
                 Q( price__icontains = filter) |
-                Q( teacher__name__icontains = filter) 
+                Q( teacher__name__icontains = filter)
                 )
-        cursos = Course.objects.filter(qset)
+        l_cursos = Course.objects.filter(qset)
+        paginador = Paginator( l_cursos, 2)
+        page = 1
+        if 'page' in request.GET:
+            page = request.GET['page']
+        try:
+            cursos = paginador.page(page)
+        except EmptyPage:
+            cursos = paginador.page( paginador.num_pages)
+        except PageNotAnInteger:
+            raise Http404("Pagina no encontrada")
 
         """
         Manera de realizar consultar por un criterio a la vez
@@ -66,7 +78,7 @@ def search(request):
         """
 
 
-    return render_to_response('index.html', {'cursos': cursos, 'filtro': filter  }, context_instance = RequestContext(request))
+    return render_to_response('index.html', {'cursos': cursos, 'paginador': paginador, 'filtro': filter  }, context_instance = RequestContext(request))
 
 @login_required(login_url="/login")
 def home(request):
@@ -80,10 +92,12 @@ def about(request):
     """
     return render_to_response('acerca.html')
 
+@login_required(login_url="/login")
 def me(request):
     """view del profile
     """
-    return render_to_response('perfil.html')
+    return render_to_response('perfil.html', context_instance = RequestContext(request))
+
 
 def contacto(request):
     """view del profile
@@ -109,8 +123,7 @@ def registro(request):
         validator.required = ['nombre', 'apellidos', 'email','password1']
 
         if validator.is_valid():
-            usuario = Usuario()
-            #p = Persona.objects.get(documento = '123123123321')
+            usuario = User()
             usuario.first_name = request.POST['nombre']
             usuario.last_name = request.POST['apellidos']
             usuario.username = request.POST['email']
@@ -118,9 +131,27 @@ def registro(request):
             usuario.password = make_password(request.POST['password1'])
             #TODO: ENviar correo electronico para confirmar cuenta
             usuario.is_active = True
+            perfil = Group.objects.get(id = 3) # carga un perfil de tipo usuario
             usuario.save()
+            usuario.groups.add( perfil )
+            usuario.save()
+
+            myusuario = Usuario()
+            myusuario.id = usuario
+            myusuario.sexo = request.POST['sexo']
+            myusuario.save()
+            #TODO: ENviar correo electronico para confirmar cuenta
+
             return render_to_response('registrarse.html', {'success': True  } , context_instance = RequestContext(request))
         else:
             return render_to_response('registrarse.html', {'error': validator.getMessage() } , context_instance = RequestContext(request))
         # Agregar el usuario a la base de datos
     return render_to_response('registrarse.html', context_instance = RequestContext(request))
+
+
+@login_required(login_url='/login')
+def notas(request):
+    if request.user.groups.filter(id = 2).exists():
+        return render_to_response('plantilla_notas.html', context_instance = RequestContext(request))
+    else:
+        return HttpResponseRedirect('/login')
