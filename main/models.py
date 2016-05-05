@@ -23,8 +23,9 @@ class Topic(models.Model):
         return self.title
 
 class Teacher(models.Model):
-    name = models.CharField(max_length= 120)
+    id = models.OneToOneField(User, primary_key = True)
     job = models.CharField(max_length = 100)
+    profile = models.TextField()
 
     def __unicode__(self):
         return self.name
