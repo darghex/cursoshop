@@ -1,0 +1,2 @@
+## librerias requeridas instalar vía pip o easy_install
+django-tinymce
