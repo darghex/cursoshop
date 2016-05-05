@@ -21,9 +21,9 @@ Listo! ya podemos iniciar a crear nuestros modelos y vistas.
 # Usando el admin de django
 El sitio administrativo de django es un backend que nos da la facilidad de crear toda una funcionalidad de operaciones CRUD. Pero no significa que con esto haremos todo nuestro proyecto, sencillamente aqui podrémos manipular algunas tablas de referencia de nuestra base de datos y dar acceso administrativo algunos usuarios que tengan permisos de INSERT, UPDATE o DELETE sobre las mismas. Mas no es una aplicación para usarse como FrontEnd. para poder usarlo necesitamos hacer lo siguiente:
 
-1. Verificar en nuestro archivo `settings.py` se encuentre la app `django.contrib.admin` en `INSTALLED_APPS`
+* Verificar en nuestro archivo `settings.py` se encuentre la app `django.contrib.admin` en `INSTALLED_APPS`
 
-2. Tener nuestro modelo creado en `models.py` que se encuentra en el directorio de nuestra aplicacición. Para este caso registrare el modelo Curso
+* Tener nuestro modelo creado en `models.py` que se encuentra en el directorio de nuestra aplicacición. Para este caso registrare el modelo Curso
 
 ```
 class Course(models.Model):
@@ -39,21 +39,21 @@ class Course(models.Model):
     def __unicode__(self):
         return self.name
 ```
-	* Más información de [modelos](https://docs.djangoproject.com/es/1.9/ref/models/fields/)
+	Más información de [modelos](https://docs.djangoproject.com/es/1.9/ref/models/fields/)
 
-3. En el archivo `admin.py` debemos registrar nuestro modelo para que el backend de administración lo pueda gestionar.
+* En el archivo `admin.py` debemos registrar nuestro modelo para que el backend de administración lo pueda gestionar.
 
-```
-@admin.register(Course)
-class CourseAdmin(admin.ModelAdmin):
-    search_fields = ('name', 'price', 'teacher__name')
-    list_display = ('name', 'price', 'teacher')
-    
-```
+	```
+	@admin.register(Course)
+	class CourseAdmin(admin.ModelAdmin):
+	    search_fields = ('name', 'price', 'teacher__name')
+	    list_display = ('name', 'price', 'teacher')
+	    
+	```
 
-	* Más información del [admin](https://docs.djangoproject.com/es/1.9/ref/contrib/admin/)
+	Más información del [admin](https://docs.djangoproject.com/es/1.9/ref/contrib/admin/)
 
-4. En el archivo de `urls.py` deben estar habilitadas las url para acceder al sitio de administración.
+* En el archivo de `urls.py` deben estar habilitadas las url para acceder al sitio de administración.
 
 ```
 urlpatterns = [
@@ -61,7 +61,7 @@ urlpatterns = [
 ]
 ```
 
-5. Ya podemos empezar a usar nuestro backend de administración. Si no contamos con un usuario en nuestra base de datos podemos crear uno mediante
+* Ya podemos empezar a usar nuestro backend de administración. Si no contamos con un usuario en nuestra base de datos podemos crear uno mediante
 
 ```
 python manage.py createsuperuser
