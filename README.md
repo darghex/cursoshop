@@ -39,7 +39,7 @@ class Course(models.Model):
     def __unicode__(self):
         return self.name
 ```
-Más información de [modelos](https://docs.djangoproject.com/es/1.9/ref/models/fields/)
+	* Más información de [modelos](https://docs.djangoproject.com/es/1.9/ref/models/fields/)
 
 3. En el archivo `admin.py` debemos registrar nuestro modelo para que el backend de administración lo pueda gestionar.
 
@@ -51,7 +51,7 @@ class CourseAdmin(admin.ModelAdmin):
     
 ```
 
-Más información del [admin](https://docs.djangoproject.com/es/1.9/ref/contrib/admin/)
+	* Más información del [admin](https://docs.djangoproject.com/es/1.9/ref/contrib/admin/)
 
 4. En el archivo de `urls.py` deben estar habilitadas las url para acceder al sitio de administración.
 
@@ -73,7 +73,13 @@ o si desea cambiar el password
 python manage.py changepassword [user]
 ```
 
-donde user corresponde al nombre de usuario registrado
+donde user corresponde al nombre de usuario registrado.
+
+
+# Extendiendo el modelo User de Django
+
+
+
 
 
 
