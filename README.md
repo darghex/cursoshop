@@ -53,3 +53,27 @@ class CourseAdmin(admin.ModelAdmin):
 
 Más información del [admin](https://docs.djangoproject.com/es/1.9/ref/contrib/admin/)
 
+4. En el archivo de `urls.py` deben estar habilitadas las url para acceder al sitio de administración.
+
+```
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+]
+```
+
+5. Ya podemos empezar a usar nuestro backend de administración. Si no contamos con un usuario en nuestra base de datos podemos crear uno mediante
+
+```
+python manage.py createsuperuser
+```
+
+o si desea cambiar el password
+
+```
+python manage.py changepassword [user]
+```
+
+donde user corresponde al nombre de usuario registrado
+
+
+
