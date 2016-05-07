@@ -1,23 +1,35 @@
 {% extends 'template.html' %}
 {% block content %}
-
-<div class="container initial">
-
+<div class="container">
     <ol class="breadcrumb">
         <li><a href="#">Inicio</a></li>
         <li class="active">mi perfil</li>
     </ol>
-
     <div class="row">
 
 
-        <div class="col-lg-4">
-            <img src="/static/img/enfo.jpg" alt="imagen de marcador genérico">
-            <h2><font><font>{{ user.first_name }} {{ user.last_name }}</font></font></h2>
+        <div class="col-md-3">
 
+            <h2><font><font>{{ user.first_name }} {{ user.last_name }}</font></font></h2>
         </div>
 
-        <div class="col-lg-8">
+        <div class="col-md-8">
+
+          <form method="post" action="{% url 'me' %}">
+            <label>Username </label><input type="text" class="form-control" name="username"  value="{{ usuario.username }}" >
+            <label>Nombre </label><input type ="text" class="form-control" name="first_name"  value="{{ usuario.first_name }}" >
+            <label>Apellido </label><input type="text" class="form-control" name="last_name"  value="{{ usuario.last_name }}" >
+            <label>Correo </label><input  type="email" class="form-control" name="username"  value="{{ usuario.email }}" >
+            <label>Ciudad </label>
+            <select name="cursos" class="form-control" >
+              <option value="0"  >-- Indica de que ciudad eres --</option>
+              {% for ciudad in ciudades %}
+                    <option  value="{{ ciudad.id }}" {% if ciudad.id == usuario.ciudad.id %} selected{% endif%}>{{ ciudad.nombre }}</option>
+              {% endfor %}
+            </select>
+
+          </form>
+
             <div class="jumbotron">
               {% if user.groups.all.0.id == 2 %}
                 <h1>Tus Cursos </h1>
@@ -52,7 +64,5 @@
 
 
 </div><!--container -->
-
-
 
 {% endblock %}

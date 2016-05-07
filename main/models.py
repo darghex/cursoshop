@@ -22,9 +22,20 @@ class Topic(models.Model):
     def __unicode__(self):
         return self.title
 
+
+class Departamento(models.Model):
+    nombre = models.CharField(max_length = 70)
+
+
+class Ciudad(models.Model):
+    departamento = models.ForeignKey(Departamento)
+    nombre = models.CharField(max_length = 70)
+
+
 class Teacher(models.Model):
-    name = models.CharField(max_length= 120)
+    id = models.OneToOneField(User, primary_key = True)
     job = models.CharField(max_length = 100)
+    ciudad = models.ForeignKey(Ciudad)
 
     def __unicode__(self):
         return self.name
@@ -46,3 +57,4 @@ list_sexo = ( ('M', 'Masculino') , ('F', 'Femenino'))
 class Usuario(models.Model):
     id = models.OneToOneField(User, primary_key = True)
     sexo = models.CharField( max_length=1, choices = list_sexo)
+    ciudad = models.ForeignKey(Ciudad)

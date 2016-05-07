@@ -128,3 +128,5 @@ STATICFILES_DIRS = [ BASE_DIR + '/static', ]
 MEDIA_ROOT =  BASE_DIR + '/uploads'
 
 MEDIA_URL = '/media/'
+
+STATIC_ROLS = {'ADMON': 1, 'TEACHER': 2, 'USER': 3}

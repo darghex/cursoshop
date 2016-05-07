@@ -53,7 +53,16 @@ class FormRegistroValidator(Validator):
             self._message = 'Las contraseñas no  coinciden'
             return False
 
-        
+        if self._post['departamento'] == '0':
+            self._message = 'Escoja el departamento donde vives'
+            return False
+
+        if self._post['ciudad'] == '0':
+            self._message = 'Escoja la ciudad donde vives'
+            return False
+
+
+
         if User.objects.filter(email = self._post['email']).exists():
             self._message = 'El correo electrónico ya se encuentra registrado'
             return False

@@ -3,11 +3,19 @@ from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.contrib import auth
 from .models import Chapter,Course
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import NON_FIELD_ERRORS
 from .validators import FormRegistroValidator, FormLoginValidator
 from django.contrib.auth.models import User, Group
+from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import Http404
+from django.contrib.auth.hashers import make_password
+from .models import Usuario, Ciudad, Departamento
+from validators import Validator
+from cursoshop.settings import STATIC_ROLS
+
 # Create your views here.
 
 def index(request):
@@ -25,8 +33,7 @@ def login(request):
         #Cargamos el formulario (ver forms.py con los datos del POST)
         validator = FormLoginValidator(request.POST)
         #formulario = LoginForm(data = request.POST)
-        #Verificamos que los datos esten correctos segun su estructura
-
+        #Verificamos que los datos esten correctos segun su estructurav
         if validator.is_valid():
             # Capturamos las variables que llegan por POST
             usuario = request.POST['usuario']
@@ -38,9 +45,7 @@ def login(request):
 
     return render_to_response('login.html', context_instance = RequestContext(request))
 
-from django.db.models import Q
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import Http404
+
 def search(request):
     """view de los resultados de busqueda
     """
@@ -96,7 +101,23 @@ def about(request):
 def me(request):
     """view del profile
     """
-    return render_to_response('perfil.html', context_instance = RequestContext(request))
+    # si el metodo get no encuentra un objeto genera una excepcion DoesNotExist
+    ciudades = Ciudad.objects.all()
+    usuario = User.objects.get( id = request.user.id )
+
+    if ( request.user.groups.filter( id = STATIC_ROLS['TEACHER']).exists() ):
+        usuario_int = Teacher.objects.get( id__id = request.user.id )
+    elif ( request.user.groups.filter( id = STATIC_ROLS['USER']).exists() ):
+        usuario_int = Usuario.objects.get( id__id = request.user.id )
+    else:
+        usuario_int = None
+
+    try:
+        setattr(usuario, 'ciudad', usuario_int.ciudad )
+    except:
+        pass
+
+    return render_to_response('perfil.html', { "usuario": usuario,  'ciudades': ciudades } , context_instance = RequestContext(request))
 
 
 def contacto(request):
@@ -109,18 +130,25 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/login")
 
+from django.core import serializers
+def ciudades(request):
+    ciudades =  Ciudad.objects.filter(departamento_id = request.GET['departamento'])
+    data = serializers.serialize('json', ciudades, fields=('id','nombre'))
+    return HttpResponse( data , content_type ='application/json' )
 
-from django.contrib.auth.hashers import make_password
-from .models import Usuario
-from validators import Validator
+from django.db import transaction
+
+@transaction.atomic
 def registro(request):
     """view del profile
     """
 
     error = False
+    departamentos = Departamento.objects.all()
+    ciudades =  Ciudad.objects.none()
     if request.method == 'POST':
         validator = FormRegistroValidator(request.POST)
-        validator.required = ['nombre', 'apellidos', 'email','password1']
+        validator.required = ['nombre', 'apellidos', 'email','password1', 'ciudad', 'departamento']
 
         if validator.is_valid():
             usuario = User()
@@ -139,6 +167,9 @@ def registro(request):
             myusuario = Usuario()
             myusuario.id = usuario
             myusuario.sexo = request.POST['sexo']
+            import pdb; pdb.set_trace()
+
+            myusuario.ciudad_id = request.POST['ciudad']
             myusuario.save()
             #TODO: ENviar correo electronico para confirmar cuenta
 
@@ -146,7 +177,7 @@ def registro(request):
         else:
             return render_to_response('registrarse.html', {'error': validator.getMessage() } , context_instance = RequestContext(request))
         # Agregar el usuario a la base de datos
-    return render_to_response('registrarse.html', context_instance = RequestContext(request))
+    return render_to_response('registrarse.html', {'departamentos': departamentos, 'ciudades': ciudades }, context_instance = RequestContext(request))
 
 
 @login_required(login_url='/login')

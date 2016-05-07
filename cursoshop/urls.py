@@ -27,13 +27,13 @@ urlpatterns = [
     url('^login$', login, name = 'login' ), #/login
     url('^logout$', logout, name = 'logout' ), #/login
     url('^home$', home, name = 'home' ), #/home
-    url('^profile$', home, name = 'profile' ), #/profile
     url('^about$', about, name = 'about' ),
     url('^me$', me, name = 'me' ),
     url('^search$', search, name = 'search' ),
     url('^register$', registro, name = 'register' ),
     url('^contacts$', contacto, name = 'contacts' ),
     url('^notas$', notas, name = 'notas' ),
+    url('^ciudades$', ciudades, name = 'ciudades' ),
     url(r'^admin/', admin.site.urls),
     url(r'^tinymce/', include('tinymce.urls')),
 ]

@@ -49,11 +49,30 @@
             </div>
 
             <div class="form-group">
-
                 <label for="exampleInputPassword2">Sexo</label>
                 <h4>Masculino<input type="radio" name='sexo' value="M" class="form-control" ></h4>
                 <h4>Femenino<input type="radio" name='sexo' value="F" class="form-control" ></h4>
+            </div>
 
+
+            <div class="form-group">
+              <label >Departamentos</label>
+              <select id="id_departamento" name="departamento" class="form-control" >
+                <option value="0"  >-- Indica de que departamento eres --</option>
+                {% for departam in departamentos %}
+                      <option  value="{{ departam.id }}" >{{ departam.nombre }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="form-group">
+                <label>Ciudades</label>
+                <select name="ciudad" id="id_ciudad" class="form-control" >
+                  <option value="0"  >-- Indica de que ciudad eres --</option>
+                  {% for ciudad in ciudades %}
+                          <option  value="{{ ciudad.id }}" >{{ ciudad.nombre }}</option>
+                  {% endfor %}
+                </select>
             </div>
 
             <div>
@@ -70,4 +89,26 @@
 
   </div>
   <!--container -->
+{% endblock %}
+
+{% block javascript %}
+<script>
+  $("#id_departamento").change(
+
+    function(){
+      //console.log( '/ciudades?departamento='+ $("#id_departamento").val());
+       $.ajax({
+         url: '/ciudades?departamento='+ this.value, // la URL para la petición
+         type: 'GET', // especifica si será una petición POST o GET
+         success : function(data) { // código a ejecutar si la petición es satisfactoria;
+              $("#id_ciudad").html("<option value'0'>-- Indica de que ciudad eres --</option>" );
+              for ( var i =0; i < data.length; i++){
+                $("#id_ciudad").append("<option value='"+ data[i].pk +"'>"+ data[i].fields.nombre +"</option>" );
+              }
+          }
+        });
+  });
+
+
+</script>
 {% endblock %}
