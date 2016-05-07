@@ -36,6 +36,7 @@ class Teacher(models.Model):
     id = models.OneToOneField(User, primary_key = True)
     job = models.CharField(max_length = 100)
     ciudad = models.ForeignKey(Ciudad)
+    profile = models.TextField()
 
     def __unicode__(self):
         return self.name
