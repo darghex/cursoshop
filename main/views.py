@@ -104,16 +104,33 @@ def me(request):
     # si el metodo get no encuentra un objeto genera una excepcion DoesNotExist
     ciudades = Ciudad.objects.all()
     usuario = User.objects.get( id = request.user.id )
+    save = False
+    if request.method == 'POST':
+        # Aqui realizar la respectiva validacion
+        # Actulizar datos de usuario
+        us = User.objects.get( id = request.user.id )
+        us.first_name  = request.POST['first_name']
+        us.last_name  = request.POST['last_name']
+        us.email  = request.POST['email']
+        us.save()
+        save = True
 
-    if ( request.user.groups.filter( id = STATIC_ROLS['TEACHER']).exists() ):
+
+    if request.user.groups.filter( id = STATIC_ROLS['TEACHER']).exists() :
         usuario_int = Teacher.objects.get( id__id = request.user.id )
-    elif ( request.user.groups.filter( id = STATIC_ROLS['USER']).exists() ):
+    elif request.user.groups.filter( id = STATIC_ROLS['USER']).exists() :
         usuario_int = Usuario.objects.get( id__id = request.user.id )
     else:
         usuario_int = None
 
+    if save and not usuario_int is None:
+        usuario_int.ciudad_id = request.POST['ciudad']
+        usuario_int.foto = request.FILES['newfoto']
+        usuario_int.save()
+
     try:
         setattr(usuario, 'ciudad', usuario_int.ciudad )
+        setattr(usuario, 'foto', usuario_int.foto )
     except:
         pass
 
@@ -167,7 +184,6 @@ def registro(request):
             myusuario = Usuario()
             myusuario.id = usuario
             myusuario.sexo = request.POST['sexo']
-            import pdb; pdb.set_trace()
 
             myusuario.ciudad_id = request.POST['ciudad']
             myusuario.save()

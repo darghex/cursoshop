@@ -37,6 +37,8 @@ class Teacher(models.Model):
     job = models.CharField(max_length = 100)
     ciudad = models.ForeignKey(Ciudad)
     profile = models.TextField()
+    foto = models.ImageField( upload_to = 'photos/') # verifcar variable MEDIA en settings
+
 
     def __unicode__(self):
         return self.name
@@ -59,3 +61,4 @@ class Usuario(models.Model):
     id = models.OneToOneField(User, primary_key = True)
     sexo = models.CharField( max_length=1, choices = list_sexo)
     ciudad = models.ForeignKey(Ciudad)
+    foto = models.ImageField( upload_to = 'photos/') # verifcar variable MEDIA en settings

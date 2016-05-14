@@ -9,53 +9,31 @@
 
 
         <div class="col-md-3">
-
-            <h2><font><font>{{ user.first_name }} {{ user.last_name }}</font></font></h2>
+            <h2><font><font><img src="/media/{{ usuario.foto }}" class='img-circle' alt="Foto" > </font></font></h2>
+            <h2><font><font>{{ usuario.first_name }} {{ usuario.last_name }}</font></font></h2>
         </div>
 
         <div class="col-md-8">
 
-          <form method="post" action="{% url 'me' %}">
+          <form method="post" action="{% url 'me' %}" enctype="multipart/form-data" >
+            {% csrf_token %}
             <label>Username </label><input type="text" class="form-control" name="username"  value="{{ usuario.username }}" >
             <label>Nombre </label><input type ="text" class="form-control" name="first_name"  value="{{ usuario.first_name }}" >
             <label>Apellido </label><input type="text" class="form-control" name="last_name"  value="{{ usuario.last_name }}" >
-            <label>Correo </label><input  type="email" class="form-control" name="username"  value="{{ usuario.email }}" >
+            <label>Correo </label><input  type="email" class="form-control" name="email"  value="{{ usuario.email }}" >
             <label>Ciudad </label>
-            <select name="cursos" class="form-control" >
+            <select name="ciudad" class="form-control" >
               <option value="0"  >-- Indica de que ciudad eres --</option>
               {% for ciudad in ciudades %}
                     <option  value="{{ ciudad.id }}" {% if ciudad.id == usuario.ciudad.id %} selected{% endif%}>{{ ciudad.nombre }}</option>
               {% endfor %}
             </select>
-
+            <label>Cambiar Foto </label>
+          <input type="file" name="newfoto" value="Cambiar Foto" class="form-control"/>
+          <br/>
+          <input type="submit" class="btn btn-primary pull-right"  value="Actualizar Perfil" />
           </form>
 
-            <div class="jumbotron">
-              {% if user.groups.all.0.id == 2 %}
-                <h1>Tus Cursos </h1>
-
-              {% else %}
-
-                              <h1><font><font>TUS COMPRAS HAN SIDO </font></font></h1>
-                              <div class="col-sm-3 placeholder">
-                                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-                                  <h4>Curso de BackEnd Django python</h4>
-                                  <span class="text-muted">$0,00</span>
-                              </div>
-                              <div class="col-sm-3 placeholder">
-                                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-                                  <h4>Curso de Lógica de programación</h4>
-                                  <span class="text-muted">$0,00</span>
-                              </div>
-                              <div class="col-sm-3 placeholder">
-                                  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="150" height="150" class="img-thumbnail" alt="Generic placeholder thumbnail">
-                                  <h4>Curso de FrontEnd con BootStrap</h4>
-                                  <span class="text-muted">$0,00</span>
-                              </div>
-                                  <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button"><font><font>editar perfil »</font></font></a>
-                              </p>
-               {% endif %}
-            </div>
 
         </div>
 
