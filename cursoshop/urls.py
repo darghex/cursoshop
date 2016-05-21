@@ -34,7 +34,9 @@ urlpatterns = [
     url('^contacts$', contacto, name = 'contacts' ),
     url('^notas$', notas, name = 'notas' ),
     url('^ciudades$', ciudades, name = 'ciudades' ),
+    url('^curso/detalle$', detalle_curso, name = 'curso' ),
     url(r'^admin/', admin.site.urls),
+
     url(r'^tinymce/', include('tinymce.urls')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

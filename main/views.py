@@ -194,7 +194,7 @@ def registro(request):
             #TODO: ENviar correo electronico para confirmar cuenta
             asunto = "Registro en cursoshop"
             body = render_to_string('email.html', { 'user': usuario})
-            
+
             #send_mail(asunto, body, EMAIL_HOST_USER, [ usuario.email ] )
             msg = EmailMultiAlternatives(asunto, body, EMAIL_HOST_USER, [ usuario.email ] )
             msg.content_subtype = "html"
@@ -212,3 +212,23 @@ def notas(request):
         return render_to_response('plantilla_notas.html', context_instance = RequestContext(request))
     else:
         return HttpResponseRedirect('/login')
+
+
+def pdf(f):
+    def funcion(*args, **kwargs):
+        html = f(*args, **kwargs)
+        result = StringIO() #creamos una instancia del un objeto StringIO para
+        pdf = pisa.pisaDocument( html , result) # convertimos en pdf la template
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return funcion
+
+import xhtml2pdf.pisa as pisa
+from StringIO import StringIO
+from django.template.loader import render_to_string
+from cursoshop.settings import STATICFILES_DIRS
+
+
+@pdf
+def detalle_curso(request):
+    curso = Course.objects.get( id = request.GET['curso'])
+    return render_to_string("detalle_curso.html", { 'curso': curso, 'path': STATICFILES_DIRS[0] }) #obtenemos la plantilla

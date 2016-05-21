@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tinymce',
     'main',
+    'wkhtmltopdf',
 ]
 
 MIDDLEWARE_CLASSES = [
