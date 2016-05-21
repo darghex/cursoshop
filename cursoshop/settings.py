@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-co'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 
@@ -130,3 +130,10 @@ MEDIA_ROOT =  BASE_DIR + '/media'
 MEDIA_URL = '/media/' # verificar URL's en urls.py
 
 STATIC_ROLS = {'ADMON': 1, 'TEACHER': 2, 'USER': 3}
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'pinkperfumesprueba@gmail.com'
+EMAIL_HOST_PASSWORD = 'pinkperfume'

@@ -154,6 +154,10 @@ def ciudades(request):
     return HttpResponse( data , content_type ='application/json' )
 
 from django.db import transaction
+from django.core.mail import send_mail, EmailMultiAlternatives
+from cursoshop.settings import EMAIL_HOST_USER
+
+from django.template.loader import render_to_string
 
 @transaction.atomic
 def registro(request):
@@ -188,7 +192,13 @@ def registro(request):
             myusuario.ciudad_id = request.POST['ciudad']
             myusuario.save()
             #TODO: ENviar correo electronico para confirmar cuenta
-
+            asunto = "Registro en cursoshop"
+            body = render_to_string('email.html', { 'user': usuario})
+            
+            #send_mail(asunto, body, EMAIL_HOST_USER, [ usuario.email ] )
+            msg = EmailMultiAlternatives(asunto, body, EMAIL_HOST_USER, [ usuario.email ] )
+            msg.content_subtype = "html"
+            msg.send()
             return render_to_response('registrarse.html', {'success': True  } , context_instance = RequestContext(request))
         else:
             return render_to_response('registrarse.html', {'error': validator.getMessage() } , context_instance = RequestContext(request))
