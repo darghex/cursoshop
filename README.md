@@ -1,12 +1,12 @@
 # cursoshop
-Proyecto de carrito de compras Y LMS-little para la enseñanza de Tecnologias WEB a los estudiantes de Tecnologia en desarrollo de sistemas de información UPC 
+Proyecto de carrito de compras Y LMS-little para la enseñanza de Tecnologias WEB a los estudiantes de Tecnologia en desarrollo de sistemas de información UPC
 
 
 # Pasos para crear crear un proyecto
 
 * una vez se cuente con django instaldo en el equipo un proyecto se crear de la siguiente manera
 	```
-	django-admin startproject [cursoshop] 
+	django-admin startproject [cursoshop]
 	```
 	Donde cursoshop es el nombre de este proyecto que quedará almacenado en el directorio donde ejecutemos el comando anterior. Este creara un subdirectorio con el mismo nombre del proyecto donde encontraremos un archivo llamado `settings.py` donde se encuentra la configuración general del proyecto (Zona horaria, Acceso a DB, ruta de templates, archivos estáticos, etc) y un archivo llamado `url.py` donde se configuraran las urls de acceso a nuestra aplicaciòn
 
@@ -50,7 +50,7 @@ El sitio administrativo de django es un backend que nos da la facilidad de crear
 	class CourseAdmin(admin.ModelAdmin):
 	    search_fields = ('name', 'price', 'teacher__name')
 	    list_display = ('name', 'price', 'teacher')
-	    
+
 	```
 
 	Más información del [admin](https://docs.djangoproject.com/es/1.9/ref/contrib/admin/)
@@ -80,7 +80,7 @@ El sitio administrativo de django es un backend que nos da la facilidad de crear
 
 # Extendiendo el modelo User de Django
 
-Django provee modelos de usuarios , grupos, permisos y otros más para la autenticación, de manera que podamos reutilizarlo sin tener que reinventar la rueda. Pero el modelo `User` es muy limitado en atributos y si queremos adicionar más sin perder la funcionalidad que brinda la autenticación debemos realizar algunos ajustes a nuestros modelos. Por ejemplo, en este proyecto se requieren don modelos para el manejo de usuario (Profesor y Usuarios) cada uno necesita de unos datos base proporcionados por el User de Django ( `first_name`, `last_name`, `email`, `password`, `username`, `is_active`) pero surge la necesidad de que el profesor debamos almacenar su profesion y perfil; asi como para los usuario el sexo. 
+Django provee modelos de usuarios , grupos, permisos y otros más para la autenticación, de manera que podamos reutilizarlo sin tener que reinventar la rueda. Pero el modelo `User` es muy limitado en atributos y si queremos adicionar más sin perder la funcionalidad que brinda la autenticación debemos realizar algunos ajustes a nuestros modelos. Por ejemplo, en este proyecto se requieren don modelos para el manejo de usuario (Profesor y Usuarios) cada uno necesita de unos datos base proporcionados por el User de Django ( `first_name`, `last_name`, `email`, `password`, `username`, `is_active`) pero surge la necesidad de que el profesor debamos almacenar su profesion y perfil; asi como para los usuario el sexo.
 
 Por ello, que debemos crear dos modelos ( `Teacher` y `Usuario`) omitiendo los atributos que ya posee el modelo `User` y agregando los que le pertenecen a cada uno. Adicionalmente para que exista un vinculo entre nuestros modelos y el proporcionado por Django realizaremos una relación 1:1 entre estos.
 
@@ -144,5 +144,7 @@ Por ello, que debemos crear dos modelos ( `Teacher` y `Usuario`) omitiendo los a
 
 
 
+# heroku
+- heroku config:set  DISABLE_COLLECTSTATIC=1  --app cursoshop
 
-
+- heroku ps:scale web=1

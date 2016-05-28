@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce',
-    'main',    
+    'main',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'cursoshop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgres',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME': 'df4o61op0mpp94',
         'USER': 'ibirhghmqggnvw',
