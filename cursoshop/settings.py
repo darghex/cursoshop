@@ -143,3 +143,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'pinkperfumesprueba@gmail.com'
 EMAIL_HOST_PASSWORD = 'pinkperfume'
+
+# Cargue para heroku
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
