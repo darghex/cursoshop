@@ -1,2 +1,6 @@
 ## librerias requeridas instalar vía pip o easy_install
-django-tinymce
+Django==1.8.11
+MySQL-python==1.2.5
+Pillow==3.1.1
+django-tinymce==2.3.0
+xhtml2pdf==0.0.6
