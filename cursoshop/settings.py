@@ -81,11 +81,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgres',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME': os.environ['OPENSHIFT_APP_NAME'],
-        'USER': db_url.username,
-        'PASSWORD': db_url.password,
-        'HOST': db_url.hostname,
-        'PORT': db_url.port,
+        'NAME': 'df4o61op0mpp94',
+        'USER': 'ibirhghmqggnvw',
+        'PASSWORD': 'sRgLouhl0qH2_nTLrll_sLnRt0',
+        'HOST': 'ec2-54-163-238-215.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
